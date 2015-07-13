@@ -3,10 +3,15 @@ import requests
 import json
 import model
 import config
-
+import os
 
 app = Flask(__name__)
-app.secret_key = config.FLASK_KEY
+
+env = os.environ['ENV']
+if env == 'PROD':
+	app.secret_key = os.environ['FLASK_KEY']
+else:
+	app.secret_key = config.FLASK_KEY
 
 @app.route("/")
 def index():
