@@ -2,7 +2,6 @@ from flask import Flask, render_template, redirect, request, url_for, flash, ses
 import requests
 import json
 import model
-import config
 import os
 
 app = Flask(__name__)
@@ -11,6 +10,7 @@ env = os.environ['ENV']
 if env == 'PROD':
 	app.secret_key = os.environ['FLASK_KEY']
 else:
+	import config
 	app.secret_key = config.FLASK_KEY
 
 @app.route("/")
