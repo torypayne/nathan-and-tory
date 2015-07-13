@@ -6,8 +6,7 @@ import os
 
 app = Flask(__name__)
 
-env = os.environ['ENV']
-if env == 'PROD':
+if os.environ['ENV'] == 'PROD':
 	app.secret_key = os.environ['FLASK_KEY']
 else:
 	import config
