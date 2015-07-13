@@ -5,12 +5,7 @@ import model
 import os
 
 app = Flask(__name__)
-
-if os.environ['ENV'] == 'PROD':
-	app.secret_key = os.environ['FLASK_KEY']
-else:
-	import config
-	app.secret_key = config.FLASK_KEY
+app.secret_key = os.environ['FLASK_KEY']
 
 @app.route("/")
 def index():
