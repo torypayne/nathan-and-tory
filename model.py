@@ -1,7 +1,6 @@
 import requests
 import json
 from pprint import pprint
-import config
 import pytz
 import datetime
 
