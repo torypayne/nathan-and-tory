@@ -2,8 +2,8 @@ import requests
 import json
 from pprint import pprint
 import config
-
-
+import pytz
+import datetime
 
 
 def request_temperature(city):
@@ -26,24 +26,37 @@ def convert_c_to_f(c_temp):
 	f_temp = (c_temp * 9/5) + 32
 	return f_temp
 
-
-def get_nathan_temp():
-	weather_dict = request_temperature("wurtulla")
+def human_readable_temp_dict(city):
+	weather_dict = request_temperature(city)
 	k_temp = pull_temp_from_json(weather_dict)
 	c_temp = convert_k_to_c(k_temp)
 	f_temp = convert_c_to_f(c_temp)
-	c_temp = round(c_temp)
-	f_temp = round(f_temp)
+	c_temp = int(round(c_temp))
+	f_temp = int(round(f_temp))
 	temp_dict = {"f": f_temp, "c": c_temp}
+	return temp_dict	
+
+def get_nathan_temp():
+	temp_dict = human_readable_temp_dict("wurtulla")
 	return temp_dict
 
 
 def get_tory_temp():
-	weather_dict = request_temperature("sanfrancisco")
-	k_temp = pull_temp_from_json(weather_dict)
-	c_temp = convert_k_to_c(k_temp)
-	f_temp = convert_c_to_f(c_temp)
-	c_temp = round(c_temp)
-	f_temp = round(f_temp)
-	temp_dict = {"f": f_temp, "c": c_temp}
+	temp_dict = human_readable_temp_dict("sanfrancisco")
 	return temp_dict
+
+def create_time_dict(time):
+	time_dict = {"day": time.strftime("%A"), "date": time.strftime("%d %B"), "hour": time.strftime("%I:%M %p")}
+	return time_dict
+
+
+def get_nathan_time():
+	nathan_time = datetime.datetime.now(pytz.timezone('Australia/Brisbane'))
+	nathan_time = create_time_dict(nathan_time)
+	return nathan_time
+
+def get_tory_time():
+	tory_time = datetime.datetime.now(pytz.timezone('America/Los_Angeles'))
+	tory_time = create_time_dict(tory_time)
+	return tory_time
+
