@@ -15,7 +15,7 @@ def index():
 	nathan["time"] = model.get_nathan_time()
 	tory["temp"] = model.get_tory_temp()
 	nathan["temp"] = model.get_nathan_temp()
-	return render_template("altindex.html", tory=tory, nathan=nathan)
+	return render_template("index.html", tory=tory, nathan=nathan)
 
 
 
