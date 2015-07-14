@@ -6,9 +6,9 @@ import datetime
 
 
 def request_temperature(city):
-	r = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+city)
+	r = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+city+"&APPID=aa037c55cb7d8c9f6d967c6e04f8875d")
 	r = json.loads(r.text)
-	pprint(r)
+	# pprint(r)
 	return r
 
 def pull_temp_from_json(weather_dict):
@@ -59,4 +59,10 @@ def get_tory_time():
 	tory_time = datetime.datetime.now(pytz.timezone('America/Los_Angeles'))
 	tory_time = create_time_dict(tory_time)
 	return tory_time
+
+def request_quote():
+	r = requests.get("http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en")
+	r = json.loads(r.text)
+	return r
+
 
