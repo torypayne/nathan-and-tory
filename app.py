@@ -5,7 +5,11 @@ import model
 import os
 
 app = Flask(__name__)
-app.secret_key = os.environ['FLASK_KEY']
+try:
+	app.secret_key = os.environ['FLASK_KEY']
+except:
+	import config
+	app.secret_key = config.FLASK_KEY
 
 @app.route("/")
 def index():

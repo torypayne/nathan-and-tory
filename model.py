@@ -8,7 +8,7 @@ import datetime
 def request_temperature(city):
 	r = requests.get("http://api.openweathermap.org/data/2.5/weather?q="+city)
 	r = json.loads(r.text)
-	# pprint(r)
+	pprint(r)
 	return r
 
 def pull_temp_from_json(weather_dict):
@@ -27,12 +27,13 @@ def convert_c_to_f(c_temp):
 
 def human_readable_temp_dict(city):
 	weather_dict = request_temperature(city)
+	weather = weather_dict["weather"][0]["description"].capitalize()
 	k_temp = pull_temp_from_json(weather_dict)
 	c_temp = convert_k_to_c(k_temp)
 	f_temp = convert_c_to_f(c_temp)
 	c_temp = int(round(c_temp))
 	f_temp = int(round(f_temp))
-	temp_dict = {"f": f_temp, "c": c_temp}
+	temp_dict = {"f": f_temp, "c": c_temp, "weather": weather}
 	return temp_dict	
 
 def get_nathan_temp():
