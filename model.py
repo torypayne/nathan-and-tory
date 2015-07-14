@@ -61,8 +61,11 @@ def get_tory_time():
 	return tory_time
 
 def request_quote():
-	r = requests.get("http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en")
-	r = json.loads(r.text)
+	try:
+		r = requests.get("http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=json&lang=en")
+		r = json.loads(r.text)
+	except:
+		r = {quoteText: "Some day, even these things will be pleasing to remember.", quoteAuthor: "Virgil"}
 	return r
 
 
